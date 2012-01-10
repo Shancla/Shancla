@@ -1,6 +1,6 @@
 <?php
 //  VALIDACION DE DATOS DEL FORMULARIO
-
+//malo
 function validar($i_busqueda,$i_fecha) {
 	$validado=true;
 	$errorvalidacion="";
