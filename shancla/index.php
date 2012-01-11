@@ -155,11 +155,23 @@
         
     </aside><!-- anuncio -->
     <div id="buscador">
-        <form method="POST" action="" name="buscador" class="buscador">
-            
-            <input type="submit" name="buscar" class="boton busqueda" value="Buscar" />
-			<input type="text" class="buscar" name="busqueda" />
-        </form>
+		<?php include "busqueda.php"; ?>
+		<form action method="post" name="buscador" class="buscador">	
+				<div id='busqueda_etiquetas'>
+				<input id='buscar' name='enviar' type='submit' value='Buscar' class="boton busqueda">
+				<input name='busqueda' type='text' value='' class="buscar">&nbsp;
+				<input id='mas' type='button' value='&darr;' onclick='avanzada("busqueda_avanzada",1)' class="boton busqueda">
+				 <input id='menos'type='button' value='&uarr;' onclick='avanzada("busqueda_avanzada",2)' class="boton busqueda" >
+				</div>
+				<br>
+				<div id='busqueda_avanzada'>
+					<input name='tag' type='checkbox'checked class='small'>Etiquetas
+					<input name='titulo' type='checkbox' class='small'>T&iacute;tulo
+					<input name='descripcion' type='checkbox' class='small'>Descripci&oacute;n
+					A partir de:
+					<input name='fecha' type='date' min="2012-01-01" max="<?php echo date("Y-m-d"); ?> size='11' class='boton small busqueda buscar'" value='dd-mm-aaaa'>
+				</div>	
+		</form>    
     </div><!-- buscador -->
 
   <!-- JavaScript at the bottom for fast page loading -->
