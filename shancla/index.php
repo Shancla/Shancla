@@ -168,7 +168,7 @@
 					<input name='tag' type='checkbox'checked class='small'>Etiquetas
 					<input name='titulo' type='checkbox' class='small'>T&iacute;tulo
 					<input name='descripcion' type='checkbox' class='small'>Descripci&oacute;n
-					A partir de: <input name='fecha' type='date' min="2012-01-01" max="<?php echo date("Y-m-d"); ?> size='11' class='boton small busqueda buscar'" value='dd-mm-aaaa'>
+					A partir de: <input name='fecha' type='date' min='2012-01-01' max='<?php echo date("Y-m-d"); ?>' size='11' class='small busqueda' value='dd-mm-aaaa'>
 				</div>	
 		</form>    
     </div><!-- buscador -->
