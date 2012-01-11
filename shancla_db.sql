@@ -6,6 +6,7 @@ create table anuncios (
 	id_anuncios int not null auto_increment primary key,
 	titulo varchar(250) not null,
 	descripcion text not null,
+	etiquetas text not null,
 	precio double(10,2),
 	fecha_publicacion timestamp,
 	publicado boolean default false,
@@ -17,7 +18,7 @@ create table anuncios (
 	direccion varchar(255) not null, 
 	visitas int,
 	clave varchar(40) not null,
-	FULLTEXT (titulo, descripcion)
+	FULLTEXT (titulo, descripcion, etiquetas)
 	);
 
 create table usuarios(
