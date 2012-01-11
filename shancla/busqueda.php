@@ -1,4 +1,4 @@
-	<!-- JAVASCRIPT y ESTILO PARA BÚSQUEDA AVANZADA DESPLEGABLE -->
+<!-- JAVASCRIPT y ESTILO PARA BÚSQUEDA AVANZADA DESPLEGABLE -->
 	<script type="text/javascript">   
 	
 	function avanzada(divId,accion) {
@@ -40,9 +40,8 @@
 			float:none;
 		}
 	</style>
-	<!-- Final de javascript y estilo para búsqueda avanzada desplegable -->
+<!-- Final de javascript y estilo para búsqueda avanzada desplegable -->
 
-<!-- FORMULARIO -->
 
 
 
