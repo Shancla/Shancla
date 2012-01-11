@@ -155,6 +155,7 @@
         
     </aside><!-- anuncio -->
     <div id="buscador">
+		<!-- Código introducido por Miguel -->
 		<?php include "busqueda.php"; ?>
 		<form action method="post" name="buscador" class="buscador">	
 				<div id='busqueda_etiquetas'>
@@ -170,7 +171,8 @@
 					<input name='descripcion' type='checkbox' class='small'>Descripci&oacute;n
 					A partir de: <input name='fecha' type='date' min='2012-01-01' max='<?php echo date("Y-m-d"); ?>' size='11' class='small busqueda' value='dd-mm-aaaa'>
 				</div>	
-		</form>    
+		</form>
+		<!-- Fin de código introducido por Miguel -->    
     </div><!-- buscador -->
 
   <!-- JavaScript at the bottom for fast page loading -->
