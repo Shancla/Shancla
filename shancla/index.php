@@ -157,10 +157,10 @@
     <div id="buscador">
 		<!-- Código introducido por Miguel -->
 		<?php include "busqueda.php"; ?>
-		<form action="#busqueda_script" method="post" name="buscador" class="buscador">	
+		<form action="#" method="post" name="buscador" onSubmit="return validarbusqueda();">	
 				<div id='busqueda_etiquetas'>
-				<input id='buscar' name='enviar' type='submit' value='Buscar' class="boton busqueda" onclick="return averiguarlocalizacion();">
-				<input name='busqueda' type='text' value='' class="buscar">&nbsp;
+				<input id='buscar' name='enviar' type='submit' value='Buscar' class="boton busqueda" >
+				<input id='busqueda' name='busqueda' type='text' value='' class="buscar">&nbsp;
 				<input id='mas' type='button' value='&darr;' onclick='avanzada("busqueda_avanzada",1)' class="boton busqueda">
 				 <input id='menos'type='button' value='&uarr;' onclick='avanzada("busqueda_avanzada",2)' class="boton busqueda" >
 				</div>
