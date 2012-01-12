@@ -170,7 +170,7 @@
 					<input id='tag' name='tag' type='checkbox'checked class=''>Etiquetas
 					<input id='tit' name='titulo' type='checkbox' class=''>T&iacute;tulo
 					<input id='des' name='descripcion' type='checkbox' class=''>Descripci&oacute;n
-					anuncios publicado desde él <input id='desde' name='fecha' type='text'  size='15' class='yanone busqueda' value='dd-mm-aaaa'>
+					anuncios publicado desde él <input id='desde' name='fecha' type='text'  size='11' class='yanone busqueda' value='01-01-2012'>
 				</div>	
 		</form>
 		<!-- Fin de código introducido por Miguel -->    
