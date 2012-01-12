@@ -23,14 +23,38 @@
 		}	  
 	}
 	
-
+	function vacio(cadena) {  
+	        for ( i = 0; i < cadena.length; i++ ) {  
+	                if ( cadena.charAt(i) != " " ) {  
+	                 return true  
+	                }  
+	        }  
+	        return false  
+	}
+	
 	function averiguarlocalizacion() {
 		var localizacion = unescape(document.cookie);
 		if (localizacion) {
-			return true;
+			return true
 		} else {
-			return false;
+			alert("localizate primero")
+			return false
 		}	
+		
+	}
+	
+	function validarbusqueda() {
+			var busqueda = document.getElementById('busqueda');
+			if (vacio(busqueda.value) == false) {
+				busqueda.style.border = '1px solid #FF0000';
+				return false;
+			} else {
+				if (averiguarlocalizacion()) { 
+					return true 
+				} else {
+					return false
+				}
+			}
 	}
 		
 	</script>
