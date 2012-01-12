@@ -21,8 +21,18 @@
 			buscar.value = 'Buscar';
 			barra.style.height = '45px';
 		}	  
-	} 
+	}
+	
 
+	function averiguarlocalizacion() {
+		var localizacion = unescape(document.cookie);
+		if (localizacion) {
+			return true;
+		} else {
+			return false;
+		}	
+	}
+		
 	</script>
     
 	<style type='text/css'>
