@@ -157,19 +157,20 @@
     <div id="buscador">
 		<!-- Código introducido por Miguel -->
 		<?php include "busqueda.php"; ?>
-		<form action method="post" name="buscador" class="buscador">	
+		<form action="#busqueda_script" method="post" name="buscador" class="buscador">	
 				<div id='busqueda_etiquetas'>
-				<input id='buscar' name='enviar' type='submit' value='Buscar' class="boton busqueda">
+				<input id='buscar' name='enviar' type='submit' value='Buscar' class="boton busqueda" onclick="return averiguarlocalizacion();">
 				<input name='busqueda' type='text' value='' class="buscar">&nbsp;
 				<input id='mas' type='button' value='&darr;' onclick='avanzada("busqueda_avanzada",1)' class="boton busqueda">
 				 <input id='menos'type='button' value='&uarr;' onclick='avanzada("busqueda_avanzada",2)' class="boton busqueda" >
 				</div>
 				<br>
-				<div id='busqueda_avanzada'>
-					<input name='tag' type='checkbox'checked class='small'>Etiquetas
-					<input name='titulo' type='checkbox' class='small'>T&iacute;tulo
-					<input name='descripcion' type='checkbox' class='small'>Descripci&oacute;n
-					A partir de: <input name='fecha' type='date' min='2012-01-01' max='<?php echo date("Y-m-d"); ?>' size='11' class='small busqueda' value='dd-mm-aaaa'>
+				<div id='busqueda_avanzada' class='yanone'>
+					Buscar en 
+					<input id='tag' name='tag' type='checkbox'checked class=''>Etiquetas
+					<input id='tit' name='titulo' type='checkbox' class=''>T&iacute;tulo
+					<input id='des' name='descripcion' type='checkbox' class=''>Descripci&oacute;n
+					anuncios publicado desde él <input id='desde' name='fecha' type='text'  size='15' class='yanone busqueda' value='dd-mm-aaaa'>
 				</div>	
 		</form>
 		<!-- Fin de código introducido por Miguel -->    
