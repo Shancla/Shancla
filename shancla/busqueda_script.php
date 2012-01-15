@@ -4,26 +4,53 @@
 // -------------------------------------------------------------------------------------------
 
 // VALIDACION DE DATOS DEL FORMULARIO
+function leer_cookie() {
+	if ($_COOKIE["latitud_longitud"]) {
+		$localización = $_COOKIE["latitud_longitud"];
+		preg_match("\(%1,%2\)",$localizacion,$grados);
+		$latitud_longitud("latitud")=$grados[1];
+		$latitud_longitud("longitud")=$grados[2];
+		return $latitud_longitud;
+	} else { 
+		return false; 
+	}
+}
+
+function vacio($cadena) {
+	if ($cadena!="") { 
+		for ($i=0; $i<strlen($cadena); $i++) {
+			if ($cadena[i]!=" ") {
+				return false;
+			} 
+		}
+	}
+	return true;
+}
 
 function validar($i_busqueda,$i_fecha) {
 	$validado=true;
 	$errorvalidacion="";
-	if ($i_busqueda == "") {
+	if (vacio($i_busqueda)) {
 		$validado = false; 
-		$errorvalidacion.= "Que introduzcas texto en el cajón de búsqueda facilitaría encontrar algo ;)<br>";
+		$errorvalidacion.= "Que introduzcas texto en el cajón de búsqueda facilitaría encontrar algo<br>";
 	}
 	if ($i_fecha != "" && $i_fecha != "dd-mm-aaaa") {
 	
 		if (!strtotime($i_fecha)) { 
 			$validado = false;
-			$errorvalidacion.= "Has introducido una fecha, pero no es el formato correcto<br>";
+			$errorvalidacion.= "Has introducido una fecha, pero no tiene el formato correcto<br>";
 		}
+	}
+	if (!leer_cookie) {
+		$validado=false;
+		$errorvalidacion.="Debes localizarte para mostrarte los anuncios cercanos a tu posición";
 	}
 	echo $errorvalidacion;
 	return $validado;
 }
 
-//PREPARA LA CADENA DE BUSQUEDA (ELIMINA ETIQUETAS HTML, ESPACIOS DOBLES, ETC)
+
+//PREPARA LA CADENA DE BUSQUEDA (ELIMINA ETIQUETAS HTML, ESPACIOS AL INICIO O FINAL, ETC)
 
 function preparar_cadena($cadena) {
 	$cadenatratada = trim($cadena);
@@ -83,12 +110,15 @@ function subrayar($cadena, $tagstratadas) {
 		if ($_POST["descripcion"]) {
 			$columnas.="descripcion";
 		}
-		// PASO 4: Si hay una fecha límite de inicio añado la condición a where
+		// Si hay una fecha límite de inicio añado la condición a where
 		if ($_POST["fecha"] != "" && $_POST["fecha"] != "dd-mm-aaaa") {
 			$fecha_inicial=date("Y-m-d h:i:s",strtotime($_POST["fecha"]));
 			$condiciondefecha="AND fecha_publicacion >= '$fecha_inicial'";
 		}
-		//PASO 5: Limitar la búsqueda al área de localización (No desarrollado)
+		// Limitar la búsqueda al área de localización
+		$latitud_longitud=leer_cookie();
+		
+		
 		
 		//Crea cunsulta final 
 		$columnas=rtrim($columnas,",");
