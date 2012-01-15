@@ -157,7 +157,7 @@
     <div id="buscador">
 		<!-- Código introducido por Miguel -->
 		<?php include "busqueda.php"; ?>
-		<form action="#" method="post" name="buscador" onSubmit="return validarbusqueda();">	
+		<form action="busqueda_script.php" method="post" name="buscador" onSubmit="return validarbusqueda();">	
 				<div id='busqueda_etiquetas'>
 				<input id='buscar' name='enviar' type='submit' value='Buscar' class="boton busqueda" >
 				<input id='busqueda' name='busqueda' type='text' value='' class="buscar">&nbsp;
@@ -167,10 +167,10 @@
 				<br>
 				<div id='busqueda_avanzada' class='yanone'>
 					Buscar en 
-					<input id='tag' name='tag' type='checkbox'checked class=''>Etiquetas
-					<input id='tit' name='titulo' type='checkbox' class=''>T&iacute;tulo
-					<input id='des' name='descripcion' type='checkbox' class=''>Descripci&oacute;n
-					anuncios publicado desde él <input id='desde' name='fecha' type='text'  size='15' class='yanone busqueda' value='dd-mm-aaaa'>
+					<input id='tag' name='tag' type='checkbox'checked class=''><label> Etiquetas </label>
+					<input id='tit' name='titulo' type='checkbox' class=''><label> T&iacute;tulo </label>
+					<input id='des' name='descripcion' type='checkbox' class=''><label> Descripci&oacute;n </label>
+					<label> anuncios publicados desde el </label> <input id='desde' name='fecha' type='text'  size='15' class='yanone busqueda' value='dd-mm-aaaa'>
 				</div>	
 		</form>
 		<!-- Fin de código introducido por Miguel -->    
