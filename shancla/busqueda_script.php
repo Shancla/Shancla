@@ -1,4 +1,5 @@
 <?php
+require "conexion.php";
 // -------------------------------------------------------------------------------------------
 // FUNCIONES DE SCRIPT
 // -------------------------------------------------------------------------------------------
@@ -8,28 +9,29 @@ function leer_cookie() {
 	if ($_COOKIE["latitud_longitud"]) {
 		$localización = $_COOKIE["latitud_longitud"];
 		preg_match("\(%1,%2\)",$localizacion,$grados);
-		$latitud_longitud("latitud")=$grados[1];
-		$latitud_longitud("longitud")=$grados[2];
-		return $latitud_longitud;
+		$latitud_longitud("latitud") = $grados[1];
+		$latitud_longitud("longitud") = $grados[2];
 	} else { 
-		return false; 
+		$latitud_longitud = false;
 	}
+	return $latitud_longitud;
 }
 
 function vacio($cadena) {
+	$esta_vacio = true;
 	if ($cadena!="") { 
 		for ($i=0; $i<strlen($cadena); $i++) {
 			if ($cadena[i]!=" ") {
-				return false;
+				$esta_vacio = false;
 			} 
 		}
 	}
-	return true;
+	return $esta_vacio;
 }
 
 function validar($i_busqueda,$i_fecha) {
-	$validado=true;
-	$errorvalidacion="";
+	$validado = true;
+	$errorvalidacion = "";
 	if (vacio($i_busqueda)) {
 		$validado = false; 
 		$errorvalidacion.= "Que introduzcas texto en el cajón de búsqueda facilitaría encontrar algo<br>";
@@ -41,8 +43,8 @@ function validar($i_busqueda,$i_fecha) {
 			$errorvalidacion.= "Has introducido una fecha, pero no tiene el formato correcto<br>";
 		}
 	}
-	if (!leer_cookie) {
-		$validado=false;
+	if (!leer_cookie()) {
+		$validado = false;
 		$errorvalidacion.="Debes localizarte para mostrarte los anuncios cercanos a tu posición";
 	}
 	echo $errorvalidacion;
@@ -95,7 +97,7 @@ function subrayar($cadena, $tagstratadas) {
 		$columnas="";
 		$condiciondefecha="";
 		$condiciondelocalizacion="";
-		$query = "SELECT * FROM anuncios WHERE ";
+		$query = "SELECT id_anuncio, lat, long, id_marcador FROM anuncios WHERE ";
 		
 		// Si Etiquetas está marcado añado etiquetas.  	
 		if ($_POST["tag"]) {
@@ -116,27 +118,26 @@ function subrayar($cadena, $tagstratadas) {
 			$condiciondefecha="AND fecha_publicacion >= '$fecha_inicial'";
 		}
 		// Limitar la búsqueda al área de localización
-		$latitud_longitud=leer_cookie();
-		
-		
-		
+		$latitud_longitud = leer_cookie();
+		$kilometros = 10;
+		$condiciondelocalizacion = "AND ( 6.371 * acos( cos( radians( ".$latitud_langitud["latitud"].") ) * cos( radians( lat ) ) * cos( radians( lng ) - radians(".$latitud_langitud["longitud"].") ) + sin( radians(".$latitud_langitud["latitud"].") ) * sin( radians( lat ) ) ) ) AS distance < $kilometros )";		
 		//Crea cunsulta final 
 		$columnas=rtrim($columnas,",");
-		if ($columnas == "") { $columnas="etiquetas"; }
+		if ($columnas == "") { 
+			$columnas = "etiquetas"; 
+		}
 		$query.="MATCH ($columnas) AGAINST ('$cadena_busqueda') $condiciondefecha $condiciondelocalizacion";
 	}
-	
-		//HACER CONSULTA (NO DESARROLLADO)
-		
+		//HACER CONSULTA	
+		$tabla=mysql_query($query);
+		// sólo para depuración
+		 echo $query;
+		// fin depuración;
+		while ($registros = mysql_query_assoc($tabla)) {
+			echo $registros["id_anuncios"].",".$registros["lat"].",".$registros["long"].",".$registros["id_marcador"]."\r\n";
+		}
 		
 	// FIN DE BUSQUEDA
 	
-	$tabla=mysql_query($query);
-	if (is_array($tabla)) {					
-		while ($registro=mysql_fetch_array($tabla)) {
-			echo $registro["Name"]." - ".$registro["District"]."<br>";
-		}
-	} else {
-		echo "No hay resultados para esa búsqueda";
-	}
+	
 ?>
