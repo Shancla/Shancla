@@ -3,7 +3,7 @@ create database shancla_db ;
 use shancla_db;
 
 create table anuncios (
-	id_anuncios int not null auto_increment primary key,
+	id_anuncio int not null auto_increment primary key,
 	titulo varchar(250) not null,
 	descripcion text not null,
 	etiquetas text not null,
