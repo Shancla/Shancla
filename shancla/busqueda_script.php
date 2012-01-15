@@ -1,5 +1,8 @@
 <?php
-require "conexion.php";
+// SOLO PARA FUNCIONAR EN MI BASE DE DATOS: RETIRAR //
+$connection = mysql_connect('localhost', 'root', '') or die ('Imposible conectar al servidor Server!');
+mysql_select_db('shancla_db') or die ('No ha sido posible seleccionar la BBDD');
+// ----------------------------------------------------
 // -------------------------------------------------------------------------------------------
 // FUNCIONES DE SCRIPT
 // -------------------------------------------------------------------------------------------
@@ -7,10 +10,11 @@ require "conexion.php";
 // VALIDACION DE DATOS DEL FORMULARIO
 function leer_cookie() {
 	if ($_COOKIE["latitud_longitud"]) {
-		$localización = $_COOKIE["latitud_longitud"];
-		preg_match("\(%1,%2\)",$localizacion,$grados);
-		$latitud_longitud("latitud") = $grados[1];
-		$latitud_longitud("longitud") = $grados[2];
+		$localizacion = $_COOKIE["latitud_longitud"];
+		$localizacion = trim($localizacion,"()");
+		$grados = explode(",",$localizacion);
+		$latitud_longitud["latitud"] = $grados[0];
+		$latitud_longitud["longitud"] = $grados[1];
 	} else { 
 		$latitud_longitud = false;
 	}
@@ -21,7 +25,7 @@ function vacio($cadena) {
 	$esta_vacio = true;
 	if ($cadena!="") { 
 		for ($i=0; $i<strlen($cadena); $i++) {
-			if ($cadena[i]!=" ") {
+			if ($cadena[$i]!=" ") {
 				$esta_vacio = false;
 			} 
 		}
@@ -97,11 +101,11 @@ function subrayar($cadena, $tagstratadas) {
 		$columnas="";
 		$condiciondefecha="";
 		$condiciondelocalizacion="";
-		$query = "SELECT id_anuncio, lat, long, id_marcador FROM anuncios WHERE ";
+		$query = "SELECT id_anuncio, lat, lng, id_marcador FROM anuncios WHERE ";
 		
 		// Si Etiquetas está marcado añado etiquetas.  	
 		if ($_POST["tag"]) {
-			$columnas.="etiqueta,";
+			$columnas.="etiquetas,";
 		}
 		
 		// Sí título está marcado añado titulo.	
@@ -120,7 +124,7 @@ function subrayar($cadena, $tagstratadas) {
 		// Limitar la búsqueda al área de localización
 		$latitud_longitud = leer_cookie();
 		$kilometros = 10;
-		$condiciondelocalizacion = "AND ( 6.371 * acos( cos( radians( ".$latitud_langitud["latitud"].") ) * cos( radians( lat ) ) * cos( radians( lng ) - radians(".$latitud_langitud["longitud"].") ) + sin( radians(".$latitud_langitud["latitud"].") ) * sin( radians( lat ) ) ) ) AS distance < $kilometros )";		
+		$condiciondelocalizacion = "AND ( 6371 * acos( cos( radians(".$latitud_longitud["latitud"].") ) * cos( radians( lat ) ) * cos( radians( lng ) - radians(".$latitud_longitud["longitud"].") ) + sin( radians(".$latitud_longitud["latitud"].") ) * sin( radians( lat ) ) )  < $kilometros )";	
 		//Crea cunsulta final 
 		$columnas=rtrim($columnas,",");
 		if ($columnas == "") { 
@@ -128,13 +132,14 @@ function subrayar($cadena, $tagstratadas) {
 		}
 		$query.="MATCH ($columnas) AGAINST ('$cadena_busqueda') $condiciondefecha $condiciondelocalizacion";
 	}
-		//HACER CONSULTA	
-		$tabla=mysql_query($query);
+		//HACER CONSULTA
 		// sólo para depuración
-		 echo $query;
-		// fin depuración;
-		while ($registros = mysql_query_assoc($tabla)) {
-			echo $registros["id_anuncios"].",".$registros["lat"].",".$registros["long"].",".$registros["id_marcador"]."\r\n";
+		 echo "query:".$query."<br>";
+		// fin depuración	
+		$tabla = mysql_query($query) or die ('Error en la consulta: $query. ' . mysql_error());
+	
+		while ($registros = mysql_fetch_assoc($tabla)) {
+			echo $registros["id_anuncio"].",".$registros["lat"].",".$registros["lng"].",".$registros["id_marcador"]."\r\n";
 		}
 		
 	// FIN DE BUSQUEDA
