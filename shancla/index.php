@@ -166,7 +166,7 @@
 				</div>
 				<br>
 				<div id='busqueda_avanzada' class='yanone'>
-					Buscar en 
+					<label>Buscar en</label> 
 					<input id='tag' name='tag' type='checkbox'checked class=''><label> Etiquetas </label>
 					<input id='tit' name='titulo' type='checkbox' class=''><label> T&iacute;tulo </label>
 					<input id='des' name='descripcion' type='checkbox' class=''><label> Descripci&oacute;n </label>
