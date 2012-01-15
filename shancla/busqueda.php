@@ -62,8 +62,8 @@
 	<style type='text/css'>
 		#busqueda_avanzada {
 			display:none;
-			padding-left: 100px;
 			float:none;
+			background-color: #FFF;
 		}
 		#menos {
 			display:none;
